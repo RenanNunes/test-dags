@@ -18,7 +18,7 @@ dag = DAG('kubpodop_test_salesforce',
           tags=['test'])
 
 task = KubernetesPodOperator(
-    namespace='default',
+    namespace='airflow',
     # service_account_name='',
     image='python:3.7',
     # image_pull_policy='Never',
