@@ -26,7 +26,7 @@ task = KubernetesPodOperator(
     labels={"foo": "bar"},
     name="task-1",
     is_delete_operator_pod=True,
-    in_cluster=False,
+    in_cluster=True,
     task_id="task-1",
     # config_file=os.path.expanduser('~')+"/.kube/config",
     get_logs=True,
@@ -34,3 +34,4 @@ task = KubernetesPodOperator(
 )
 
 task
+
