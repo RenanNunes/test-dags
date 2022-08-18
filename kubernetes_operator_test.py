@@ -5,6 +5,11 @@ from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import Kubernete
 from airflow.models import Variable
 
 
+def get_cmds():
+    cmds = ['consumer_key=' + str(Variable.get("consumer_key")) + ' consumer_secret=' + str(Variable.get("consumer_secret")) + ' token=' + str(Variable.get("token")) + ' user=' + str(Variable.get("user")) + ' password=' + str(Variable.get("password")), "python3", "cdc-test.py"]
+    print(cmds)
+    return cmds
+
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
@@ -24,7 +29,7 @@ task = KubernetesPodOperator(
     # service_account_name='',
     image='renannunes/cdc-sf-test',
     # image_pull_policy='Never',
-    cmds=['consumer_key=' + str(Variable.get("consumer_key")) + ' consumer_secret=' + str(Variable.get("consumer_secret")) + ' token=' + str(Variable.get("token")) + ' user=' + str(Variable.get("user")) + ' password=' + str(Variable.get("password")), "python3", "cdc-test.py"],
+    cmds=get_cmds(),
     labels={"foo": "bar"},
     name="task-1",
     is_delete_operator_pod=True,
