@@ -19,6 +19,6 @@ default_args = {
     'start_date': datetime(2022, 7, 1)
 }
 
-with DAG('test', schedule_interval='*/10 * * * *', default_args=default_args) as dag:
+with DAG('test', schedule_interval='*/10 * * * *', catchup=False, default_args=default_args) as dag:
     task_1 = PythonOperator(task_id='task_1', python_callable=main)
-    
+
