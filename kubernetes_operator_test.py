@@ -24,7 +24,7 @@ task = KubernetesPodOperator(
     # service_account_name='',
     image='renannunes/cdc-sf-test',
     # image_pull_policy='Never',
-    cmds=[f"consumer_key='${Variable.get(\"consumer_key\")}' consumer_secret='${Variable.get(\"consumer_secret\")}' token='${Variable.get(\"token\")}' user='${Variable.get(\"user\")}' password='${Variable.get(\"password\")}'", "python3", "cdc-test.py"],
+    cmds=['consumer_key=' + str(Variable.get("consumer_key")) + ' consumer_secret=' + str(Variable.get("consumer_secret")) + ' token=' + str(Variable.get("token")) + ' user=' + str(Variable.get("user")) + ' password=' + str(Variable.get("password")), "python3", "cdc-test.py"],
     labels={"foo": "bar"},
     name="task-1",
     is_delete_operator_pod=True,
