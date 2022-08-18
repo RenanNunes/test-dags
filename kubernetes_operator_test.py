@@ -2,6 +2,8 @@ from datetime import datetime, timedelta
 
 from airflow import DAG
 from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import KubernetesPodOperator
+from airflow.models import Variable
+
 
 default_args = {
     'owner': 'airflow',
@@ -20,9 +22,9 @@ dag = DAG('kubpodop_test_salesforce',
 task = KubernetesPodOperator(
     namespace='airflow',
     # service_account_name='',
-    image='python:3.7',
+    image='renannunes/cdc-sf-test',
     # image_pull_policy='Never',
-    cmds=["python", "-c", "print('Hello world!')"],
+    cmds=[f"consumer_key='${Variable.get(\"consumer_key\")}' consumer_secret='${Variable.get(\"consumer_secret\")}' token='${Variable.get(\"token\")}' user='${Variable.get(\"user\")}' password='${Variable.get(\"password\")}'", "python3", "cdc-test.py"],
     labels={"foo": "bar"},
     name="task-1",
     is_delete_operator_pod=True,
