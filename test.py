@@ -3,14 +3,14 @@ from datetime import datetime
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
-from google.cloud import bigquery
+#from google.cloud import bigquery
 
 
 def main():
     print('Test')
     print(datetime(2022, 7, 1))
-    client = bigquery.Client()
-    print(client.project)
+    #client = bigquery.Client()
+    #print(client.project)
 
 
 
